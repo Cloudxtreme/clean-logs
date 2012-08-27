@@ -13,11 +13,10 @@ end
 nodes = data_bag_item("logs","nodes")
 
 nodes.each do |log_node|
-    log_node.each do |sapp|
+    log_node.each do |sapp,keys|
       file = File.open("/var/chef/custom.txt", "w")
       file.puts("title:#{sapp}")
-      file.puts("file path: #{sapp["file_path"]}")
-      file.puts("file size: #{sapp["file_size"]}")
+      file.puts("body: #{keys["matches"]}")
       file.close
     end
 end
