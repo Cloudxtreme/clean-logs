@@ -12,9 +12,9 @@ end
 #logs = data_bag("logs")
 nodes = data_bag_item("logs","nodes")
 
-nodes.each do |node|
-  if node == node.hostname
-    node.each do |sapp|
+nodes.each do |log_node|
+  if log_node == node.hostname
+    log_node.each do |sapp|
       file = File.open("/var/chef/custom.txt", "w")
       file.puts("title:#{sapp}")
       file.puts("file path: #{sapp["file_path"]}")
