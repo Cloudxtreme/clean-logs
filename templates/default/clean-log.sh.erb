@@ -1,0 +1,9 @@
+<% unless node["os"] == "linux" %>
+#!/usr/bin/sh
+<% else %>
+#!/bin/sh
+<% end %>
+
+<% @config_rm.eahc do |rm| %>
+rm <%= rm %>
+<% end %>
