@@ -3,7 +3,13 @@
 <% else %>
 #!/bin/sh
 <% end %>
-
-<% @config_rm.each do |rm| %>
+# rm files
+<%  @config_rm.each do |rm| %>
 rm <%= rm %>
+<% end %>
+
+#----------
+# archive files
+<% @config_archive.each do |archive| %>
+gzip <%= archive %>
 <% end %>
