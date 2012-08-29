@@ -3,7 +3,7 @@
 <% else %>
 #!/bin/sh
 <% end %>
-<% unless @config_rm.empty? %>
+<% if @config_rm %>
 # rm files
 # --------
 <%  @config_rm.each do |rm| %>
@@ -12,7 +12,7 @@ rm <%= rm %>
 <% end %>
 
 #----------
-<% unless @config_archive.empty? %>
+<% if @config_archive %>
 # archive files
 <% @config_archive.each do |archive| %>
 gzip <%= archive %>
@@ -20,7 +20,7 @@ gzip <%= archive %>
 <% end %>
 
 #----------
-<% unless @config_cat.empty? %>
+<% if @config_cat %>
 #cat files
 <% @config_cat.each do |cat| %>
 cat /dev/null > <%= cat %>
