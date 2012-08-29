@@ -81,6 +81,7 @@ def file_age(unit, multi)
     return num * multi.to_i
   else
     puts "Invalid age unit '#{unit}'"
+    return false
   end
 end
 
@@ -116,7 +117,7 @@ nodes.each do |log_node, value|
       
       
      fileage = file_age(age.scan(/h|d|w/)[-1], age.scan(/\d+/)[0])
-     filesize = file_size(size.scan(/b|k|m|g|t/)[-1], size.scan(/\d+/)[0])
+     filesize = size ? file_size(size.scan(/b|k|m|g|t/)[-1], size.scan(/\d+/)[0]) : nil
      
       
       recurse(recurse,file_path).each do |path|
@@ -149,8 +150,10 @@ nodes.each do |log_node, value|
             end
           when 2 #cat /dev/null
             cat_arry = []
-            file.map {|f| cat_arry << f if File.size(f) > filesize }
-            node_logs_arry << {"cat_files"=> cat_arry} unless cat_arry.empty?
+            if filesize
+              file.map {|f| cat_arry << f if File.size(f) > filesize }
+              node_logs_arry << {"cat_files"=> cat_arry} unless cat_arry.empty?
+            end
           end
         end
       end

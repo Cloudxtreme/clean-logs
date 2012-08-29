@@ -4,23 +4,25 @@
 #!/bin/sh
 <% end %>
 <% if @config_rm %>
-# rm files
 # --------
+# rm files
 <%  @config_rm.each do |rm| %>
 rm <%= rm %>
 <% end %>
 <% end %>
 
-#----------
+
 <% if @config_archive %>
+#----------
 # archive files
 <% @config_archive.each do |archive| %>
 gzip <%= archive %>
 <% end %>
 <% end %>
 
-#----------
+
 <% if @config_cat %>
+#----------
 #cat files
 <% @config_cat.each do |cat| %>
 cat /dev/null > <%= cat %>
