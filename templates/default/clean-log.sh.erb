@@ -18,3 +18,11 @@ rm <%= rm %>
 gzip <%= archive %>
 <% end %>
 <% end %>
+
+#----------
+<% unless @config_cat.empty? %>
+#cat files
+<% @config_cat.each do |cat| %>
+cat /dev/null > <%= cat %>
+<% end %>
+<% end %>

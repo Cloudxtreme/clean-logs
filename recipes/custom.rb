@@ -147,6 +147,10 @@ nodes.each do |log_node, value|
               #puts "#{gtype}"
               node_logs_arry << {"archive"=> gtype} unless gtype.empty?
             end
+          when 2 #cat /dev/null
+            cat_arry = []
+            file.map {|f| cat_arry << f if File.size(f) > filesize }
+            node_logs_arry << {"cat_files"=> cat_arry} unless cat_arry.empty?
           end
         end
       end
@@ -154,19 +158,21 @@ nodes.each do |log_node, value|
     end
   end
 end
-rm_arry,archive_arry = [],[]
+rm_arry,archive_arry,cat_arry = [],[],[]
 node_logs_arry.each do |you|
   you.each do |key,value|
     if key == "rm"
       rm_arry << value
-    else
+    elsif key == "archive"
       archive_arry << value
+    else
+      cat_arry << value
     end
   end
 end
 
 
-unless rm_arry.flatten.empty? || archive_arry.flatten.empty?
+unless rm_arry.flatten.empty? || archive_arry.flatten.empty? || cat_arry.flatten.empty?
   directory "/var/chef/exec" do
     action :create
   end
@@ -175,7 +181,8 @@ unless rm_arry.flatten.empty? || archive_arry.flatten.empty?
     mode 0755
     variables(
         :config_rm => rm_arry.flatten!,
-        :config_archive => archive_arry.flatten!
+        :config_archive => archive_arry.flatten!,
+        :config_cat => cat_arry.flatten!
       )
   end
 end
