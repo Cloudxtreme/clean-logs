@@ -172,7 +172,7 @@ node_logs_arry.each do |you|
 end
 
 
-unless rm_arry.flatten.empty? || archive_arry.flatten.empty? || cat_arry.flatten.empty?
+unless rm_arry.flatten.empty? && archive_arry.flatten.empty? && cat_arry.flatten.empty?
   directory "/var/chef/exec" do
     action :create
   end
