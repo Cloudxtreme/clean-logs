@@ -15,7 +15,7 @@ def matches(path,matches)
       end
     end
   end
-  return file_arry unless file_arry[0] == nil
+  return file_arry unless file_arry.empty?
 end
 
 #recurse path
@@ -130,22 +130,22 @@ nodes.each do |log_node, value|
             if filesize
               fa = []
               farry.map {|f| fa << f if File.size(f) > filesize }            
-              node_logs_arry << {"rm"=> fa} if fa[0]
+              node_logs_arry << {"rm"=> fa} unless fa.empty?
             else
               #puts "rm tytyty #{farry}"
-              node_logs_arry << {"rm"=> farry } if farry[0]
+              node_logs_arry << {"rm"=> farry } unless farry.empty?
             end
           when 1 #gzip
             gzip_type,gtype = [],[]
-            file.map {|f| gzip_type << f }#if (Time.now.to_i - file_time(type, f)) > fileage }
+            file.map {|f| gzip_type << f if (Time.now.to_i - file_time(type, f)) > fileage }
             gzip_type.map {|f| gtype << f unless f =~ /^.bz2|gz|zip|tar/ }
             if filesize
               hh = []
               gtype.map {|f| hh << f if File.size(f) > filesize }
-              node_logs_arry << {"archive"=> hh} if hh[0]
+              node_logs_arry << {"archive"=> hh} unless hh.empty?
             else
               #puts "#{gtype}"
-              node_logs_arry << {"archive"=> gtype} if gtype[0]
+              node_logs_arry << {"archive"=> gtype} unless gtype.empty?
             end
           end
         end
@@ -166,7 +166,7 @@ node_logs_arry.each do |you|
 end
 
 
-if rm_arry.flatten![-1] || archive_arry.flatten![-1]
+unless rm_arry.flatten!.empty? || archive_arry.flatten!.empty?
   directory "/var/chef/exec" do
     action :create
   end

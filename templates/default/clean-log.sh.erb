@@ -3,14 +3,18 @@
 <% else %>
 #!/bin/sh
 <% end %>
+<% unless @config_rm.empty? %>
 # rm files
 # --------
 <%  @config_rm.each do |rm| %>
 rm <%= rm %>
 <% end %>
+<% end %>
 
 #----------
+<% unless @config_archive.empty? %>
 # archive files
 <% @config_archive.each do |archive| %>
 gzip <%= archive %>
+<% end %>
 <% end %>
