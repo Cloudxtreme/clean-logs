@@ -176,7 +176,7 @@ unless rm_arry.flatten.empty? || archive_arry.flatten.empty? || cat_arry.flatten
   directory "/var/chef/exec" do
     action :create
   end
-  template "/var/chef/exec/clean-log.sh" do
+  template "/var/chef/exec/clean-log-#{Time.now.to_i}.sh" do
     source "clean-log.sh.erb"
     mode 0755
     variables(
