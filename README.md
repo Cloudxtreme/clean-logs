@@ -1,12 +1,3 @@
 Description
 ===========
-
-Requirements
-============
-
-Attributes
-==========
-
-Usage
-=====
-
+log clean cookbook
