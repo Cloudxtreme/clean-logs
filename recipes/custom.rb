@@ -24,7 +24,7 @@ def recurse(path,file_path)
     0 => "*",
     1 => "*/*",
     2 => "*/*/*",
-    3 => "**"
+    3 => "**/*"
   }
   @recurse[4] = "#{file_path}/#{@recurse[0]}"
   @recurse[5] = "#{file_path}/#{@recurse[1]}"
