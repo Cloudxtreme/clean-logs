@@ -154,7 +154,8 @@ nodes.each do |log_node, value|
               file.map {|f| cat_arry << f if File.size(f) > filesize }
               node_logs_arry << {"cat_files"=> cat_arry} unless cat_arry.empty?
             else
-              file.map {|f| node_logs_arry << f if (Time.now.to_i - file_time(type, f)) > fileage }
+              file.map {|f| cat_arry << f if (Time.now.to_i - file_time(type, f)) > fileage }
+              node_logs_arry << {"cat_files"=> cat_arry} unless cat_arry.empty?
             end
           end
         end
