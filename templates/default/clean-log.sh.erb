@@ -1,27 +1,20 @@
-<% unless node["os"] == "linux" %>
-#!/usr/bin/sh
-<% else %>
 #!/bin/sh
-<% end %>
-<% if @config_rm %>
+
+<% if !@config_rm.empty? %>
 # --------
 # rm files
 <%  @config_rm.each do |rm| %>
 rm <%= rm %>
 <% end %>
 <% end %>
-
-
-<% if @config_archive %>
+<% if !@config_archive.empty? %>
 #----------
 # archive files
 <% @config_archive.each do |archive| %>
 gzip <%= archive %>
 <% end %>
 <% end %>
-
-
-<% if @config_cat %>
+<% if !@config_cat.empty? %>
 #----------
 #cat files
 <% @config_cat.each do |cat| %>
